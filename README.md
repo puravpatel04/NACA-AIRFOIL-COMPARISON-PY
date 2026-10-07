@@ -11,6 +11,7 @@ A small Python tool that computes and plots the upper and lower surface coordina
 - Plots a single airfoil with its camber line
 - Overlays multiple airfoils on one figure for comparison
 - Works from the command line or with interactive prompts
+- Exports Selig-format `.dat` files for XFOIL, XFLR5, and CFD tools (`-e`)
 
 ## Installation
 
@@ -32,6 +33,7 @@ python naca4.py 2412               # plot a single airfoil
 python naca4.py 0012 2412 4415     # compare several airfoils
 python naca4.py 0012 4415 -n 200   # use 200 points per surface
 python naca4.py -h                 # show help
+python naca4.py 2412 -e            # also write naca2412.dat
 ```
 
 Good comparisons to try:
