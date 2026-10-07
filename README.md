@@ -117,3 +117,7 @@ $$x_l = x + y_t \sin\theta, \qquad y_l = y_c - y_t \cos\theta$$
 
 - Abbott, I. H., and von Doenhoff, A. E., *Theory of Wing Sections*, Dover, 1959.
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79ae812 (Add comparison image and update README)
