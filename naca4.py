@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import argparse
 
 def parse_naca4(code):
     """'2412' -> (m, p, t) as fractions of chord."""
@@ -54,9 +55,9 @@ def naca4(code, n=100):
     return xu, yu, xl, yl, x, yc
 
 def plot_airfoil(code, n=100): 
-    xy, yu, xl, yl, x, yc = naca4(code, n)
+    xu, yu, xl, yl, x, yc = naca4(code, n)
     fig, ax = plt.subplots(figsize=(10,4))
-    ax.plot(xy, yu, "b-", label="Upper Surface")
+    ax.plot(xu, yu, "b-", label="Upper Surface")
     ax.plot(xl, yl, "r-", label="Lower Surface")
     ax.plot(x, yc, "k--", label="Camber Line")
     ax.set_aspect("equal")
@@ -118,7 +119,6 @@ def export_dat(code, n=100, filename=None):
     return filename
 
 
-import argparse
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Plot or compare NACA 4-digit airfoils.")
     parser.add_argument("codes", nargs="*", help="one or more 4-digit codes, e.g. 0012 2412 4415")
