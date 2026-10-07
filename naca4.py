@@ -105,27 +105,45 @@ def compare_airfoils(codes, n=100):
     ax.legend()
     plt.show()
 
+def export_dat(code, n=100, filename=None): 
+    """Write the airfoil to a .dat file and return the file name."""
+    xu, yu, xl, yl, x, yc = naca4(code, n)
+
+    xs = np.concatenate([xu[::-1], xl[1:]])
+    ys = np.concatenate([yu[::-1], yl[1:]]) + 0.0
+
+    filename = filename or f"naca{code}.dat"
+    np.savetxt(filename, np.column_stack([xs, ys]),
+               fmt = "%.6f", header=f"NACA {code}", comments="")
+    return filename
+
+
 import argparse
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Plot or compare NACA 4-digit airfoils.")
     parser.add_argument("codes", nargs="*", help="one or more 4-digit codes, e.g. 0012 2412 4415")
     parser.add_argument("-n", "--points", type=int, default=100,
                         help="points per surface (default 100)")
+    parser.add_argument("-e", "--export", action="store_true",
+                        help="also write a Selig-format .dat file for each airfoil")
     args = parser.parse_args()
 
-    codes = args.codes or get_naca_codes()   # no codes given -> ask interactively
+    codes = args.codes or get_naca_codes()
     if codes:
         try:
             for c in codes:
-                parse_naca4(c)               # validate every code up front
+                parse_naca4(c)
         except ValueError as err:
             parser.error(str(err))
+
+        if args.export:
+            for c in codes:
+                print(f"Saved {export_dat(c, args.points)}")
 
         if len(codes) == 1:
             plot_airfoil(codes[0], args.points)
         else:
             compare_airfoils(codes, args.points)
-
 
 
  
